@@ -9,7 +9,8 @@ from telegram.ext import (
     filters
 )
 
-TOKEN = "8925684775:AAHavU5l8zunPIA8RbqFZ2MSmzOo2cO0JMc"
+import os
+TOKEN = os.getenv("TOKEN")
 
 TRANSPORT, WEIGHT, DISTANCE, VALUE = range(4)
 
