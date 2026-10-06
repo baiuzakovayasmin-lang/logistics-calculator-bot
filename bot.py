@@ -39,8 +39,6 @@ async def calculate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     return TRANSPORT
-    )
-    return TRANSPORT
 
 
 async def transport(update: Update, context: ContextTypes.DEFAULT_TYPE):
