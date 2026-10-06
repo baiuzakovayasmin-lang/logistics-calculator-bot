@@ -1,5 +1,5 @@
 
-from telegram import Update
+from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -23,21 +23,38 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def calculate(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    keyboard = [
+        ["🚛 Road", "🚆 Rail"]
+    ]
+
+    reply_markup = ReplyKeyboardMarkup(
+        keyboard,
+        resize_keyboard=True,
+        one_time_keyboard=True
+    )
+
     await update.message.reply_text(
-        "? Choose transport:\n\n"
-        "Type: Road or Rail"
+        "🚚 Choose transport:",
+        reply_markup=reply_markup
+    )
+
+    return TRANSPORT
     )
     return TRANSPORT
 
 
 async def transport(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    answer = update.message.text.strip().lower()
+ answer = update.message.text.strip().lower()
 
-    if answer not in ["road", "rail"]:
-        await update.message.reply_text(
-            "? Please type exactly: Road or Rail"
-        )
-        return TRANSPORT
+if "road" in answer:
+    answer = "road"
+elif "rail" in answer:
+    answer = "rail"
+else:
+    await update.message.reply_text(
+        "❌ Please choose Road or Rail"
+    )
+    return TRANSPORT
 
     context.user_data["transport"] = answer
 
